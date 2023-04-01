@@ -1,10 +1,14 @@
-document.getElementById('credentialsForm').addEventListener('submit', (e) => {
+document.getElementById('credentialsForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
-  chrome.storage.sync.set({ username, password }, () => {
+  // Use the encryption key to encrypt the credentials
+  const encryptionKey = await importEncryptionKey(YOUR_ENCRYPTION_KEY);
+  const encryptedUsername = await encryptData(encryptionKey, username);
+  const encryptedPassword = await encryptData(encryptionKey, password);
+
+  chrome.storage.sync.set({ encryptedUsername, encryptedPassword }, () => {
     alert('Credentials saved');
   });
 });
