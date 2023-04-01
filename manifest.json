@@ -1,0 +1,20 @@
+{
+	"manifest_version": 2,
+	"name": "Auto Login",
+	"version": "1.0",
+	"description": "Automatically log in to Keio University's syllabus website",
+	"permissions": ["storage", "tabs", "https://syllabus.sfc.keio.ac.jp/*"],
+	"background": {
+		"scripts": ["background.js"],
+		"persistent": false
+	},
+	"content_scripts": [{
+		"matches": ["https://syllabus.sfc.keio.ac.jp/users/sign_in"],
+		"js": ["content.js"]
+	}],
+	"options_page": "options.html",
+	"browser_action": {
+
+		"default_title": "Auto Login"
+	}
+}
